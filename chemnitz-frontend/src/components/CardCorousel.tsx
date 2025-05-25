@@ -21,8 +21,8 @@ function CardCorousel() {
 
         thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
 
-        const timeRunning = 1000;
-        const timeAutoNext = 1000;
+        const timeRunning = 10000;
+        const timeAutoNext = 10000;
 
         let runTimeOut: NodeJS.Timeout;
         let runNextAuto: NodeJS.Timeout;
@@ -69,8 +69,8 @@ function CardCorousel() {
             <div className="carousel">
                 <div className="list">
                     <div className="item">
-                        <Image src="/assets/image/img1.jpg" alt=''/>
-                                                {/* <img src={image1.src} /> */}
+                        {/* <Image src="/assets/image/img1.jpg" alt=''/> */}
+                                                <img src={image1.src} />
                         <div className="content">
                             <div className="author">LUNDEV</div>
                             <div className="title">DESIGN SLIDER</div>
@@ -129,6 +129,21 @@ function CardCorousel() {
                             </div>
                         </div>
                     </div>
+                         <div className="item">
+                        <img src={image4.src} />
+                        <div className="content">
+                            <div className="author">LUNDEV</div>
+                            <div className="title">DESIGN SLIDER</div>
+                            <div className="topic">ANIMAL</div>
+                            <div className="des">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                            </div>
+                            <div className="buttons">
+                                <button>SEE MORE</button>
+                                <button>SUBSCRIBE</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="thumbnail">
@@ -166,6 +181,17 @@ function CardCorousel() {
                         </div>
                     </div>
                     <div className="item">
+                        <img src={image4.src} />
+                        <div className="content">
+                            <div className="title">
+                                Name Slider
+                            </div>
+                            <div className="description">
+                                Description
+                            </div>
+                        </div>
+                    </div>
+                       <div className="item">
                         <img src={image4.src} />
                         <div className="content">
                             <div className="title">

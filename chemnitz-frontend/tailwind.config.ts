@@ -8,6 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        'progress-bar': {
+          '0%': { width: '100%' },
+          '100%': { width: '0%' },
+        },
+      },
+      animation: {
+        'progress-bar': 'progress-bar 5s linear forwards',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
