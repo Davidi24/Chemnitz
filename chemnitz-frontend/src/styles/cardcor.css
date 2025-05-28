@@ -97,8 +97,7 @@ header a{
     gap: 20px;
 }
 .thumbnail .item{
-    width: 150px;
-    height: 220px;
+
     flex-shrink: 0;
     position: relative;
 }
@@ -298,6 +297,7 @@ header a{
         opacity: 0;
     }
 }
+
 @media screen and (max-width: 678px) {
     .carousel .list .item .content{
         padding-right: 0;
@@ -306,3 +306,4 @@ header a{
         font-size: 30px;
     }
 }
+

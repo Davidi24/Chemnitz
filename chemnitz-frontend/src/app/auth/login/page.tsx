@@ -7,7 +7,8 @@ import SignupForm from "@/components/SignupForm";
 
 function Login() {
     const [active, setActive] = useState(false);
-    const [isRegister, setIsRegister] = useState(false);
+    const [isRegisterForm, setIsRegisterForm] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
 
     const handleRegisterClick = () => {
         setActive(true);
@@ -51,14 +52,14 @@ function Login() {
 
 
             <div
-                className={`flex  justify-center bg-blue-200 perspective-1000 lg:hidden ${isRegister ? "sm:min-h-[127vh] items-center" : "items-center"}`}
+                className={`flex  justify-center bg-blue-200 perspective-1000 lg:hidden ${isRegisterForm ? "sm:min-h-[127vh] items-center" : "items-center"}`}
                 style={{
-                    minHeight: isRegister ? "100vh" : "100vh",
+                    minHeight: isRegisterForm ? "100vh" : "100vh",
                     transition: "min-height 0.5s ease",
                 }}
             >
                 <div
-                    className={`h-full min-h-[40rem] m-6 w-[25rem] relative rounded-3xl shadow-lg bg-white transition-transform duration-700 transform-style-preserve-3d ${isRegister ? "rotate-y-180 min-h-[43rem]" : "rotate-y-0 "
+                    className={`h-full min-h-[40rem] m-6 w-[25rem] relative rounded-3xl shadow-lg bg-white transition-transform duration-700 transform-style-preserve-3d ${isRegisterForm ? "rotate-y-180 min-h-[43rem]" : "rotate-y-0 "
                         }`}
                 >
                     <div className="absolute inset-0 backface-hidden flex flex-col">
@@ -66,7 +67,7 @@ function Login() {
                             <h2 className="text-xl font-bold mb-2">Hello, Welcome!</h2>
                             <p className="text-sm mb-4">Don't have an account?</p>
                             <button
-                                onClick={() => setIsRegister(true)}
+                                onClick={() => setIsRegisterForm(true)}
                                 className="border border-white rounded px-5 py-2 hover:bg-white hover:text-blue-500 transition"
                             >
                                 Register
@@ -85,7 +86,7 @@ function Login() {
                             <h2 className="text-xl font-bold mb-2">Create Account</h2>
                             <p className="text-sm mb-4">Already have an account?</p>
                             <button
-                                onClick={() => setIsRegister(false)}
+                                onClick={() => setIsRegisterForm(false)}
                                 className="border border-white rounded px-5 py-2 hover:bg-white hover:text-blue-500 transition"
                             >
                                 Login
