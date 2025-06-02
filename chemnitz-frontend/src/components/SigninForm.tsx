@@ -42,7 +42,7 @@ function SigninForm() {
                 <div className="flex flex-col lg:items-center lg:justify-center px-6 py-8 h-full">
                     <div className="w-full  ">
                         <div className="pl-5 max-w-[20rem]">
-                            <h1 className="text-xl font-bold leading-tight tracking-tight text-[#0e0d0d] whitespace-nowrap  md:text-[28px] -ml-4 mb-6">
+                            <h1 className="text-xl font-bold leading-tight tracking-tight text-[#0e0d0d] whitespace-nowrap  md:text-[27px]  mb-6">
                                 <div className="w-full flex justify-center ">
                                     Sign in to your account
                                 </div>

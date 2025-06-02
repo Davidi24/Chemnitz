@@ -70,11 +70,11 @@ function SignupForm() {
                     <div className="w-full ">
                         <div className="pl-2 pr-3 lg:pl-0 lg:max-w-[20rem] flex flex-col justify-center">
                             <div className="flex justify-center">
-                                <h1 className="text-xl font-bold leading-tight tracking-tight text-[#0e0d0d] whitespace-nowrap  md:text-[28px] lg:-ml-10 mb-6">
-                                    Signup to your account
+                                <h1 className="text-xl font-bold leading-tight tracking-tight text-[#0e0d0d] whitespace-nowrap  md:text-[27px]  mb-6">
+                                    Sign up to your account
                                 </h1>
                             </div>
-                            <div className="lg:-ml-4 lg:px-3 w-full ">
+                            <div className=" w-full ">
                                 <div className="space-y-4 md:space-y-4  ">
                                     <div>
                                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Your Name</label>

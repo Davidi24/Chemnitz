@@ -41,7 +41,7 @@ const Transition = ({ children, direction = "left", _duration = 0.8, className =
       animate={controls}
       variants={fadeInVariants}
       transition={{ duration: _duration, ease: "easeOut" }}
-      className={className} // Apply the incoming className here
+      className={`${className} h-full w-full`} 
     >
       {children}
     </motion.div>
