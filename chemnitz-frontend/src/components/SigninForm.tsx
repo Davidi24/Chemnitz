@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import Loading from "@/components/general/Loading";
+import Loading from "@/components/Common/Loading";
 import googleIcon from "../../public/assets/icons/googleIcon.png";
 import { loginUser } from "@/api/authenticationAPI";
 

@@ -35,6 +35,7 @@ function Login() {
 
     return (
         <div style={backgroundStyle}>
+
             {/* Desktop View */}
             <div className="hidden lg:block">
                 <div className="test relative flex items-center justify-center">
@@ -73,7 +74,6 @@ function Login() {
                 <div
                     className={`relative bg-white m-6 w-[25rem] min-h-[43rem] rounded-3xl transition-transform duration-700 transform-style-preserve-3d ${isRegisterForm ? "rotate-y-180" : "rotate-y-0"}`}
                 >
-                    {/* Signin Side */}
                     <div
                         className={`absolute inset-0 backface-hidden flex flex-col transition-opacity duration-500 ${isRegisterForm ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"}`}
                     >
@@ -132,7 +132,6 @@ function Login() {
                     </div>
                 </div>
 
-                {/* Extra CSS */}
                 <style>{`
                     .perspective-1000 {
                         perspective: 1000px;

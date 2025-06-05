@@ -2,7 +2,7 @@ import React from 'react'
 
 function TestComponent() {
   return (
-    <div className='h-[20rem] w-full'>TestComponent</div>
+    <div className='h-[80rem] w-full mt-[10rem]'>TestComponent</div>
   )
 }
 

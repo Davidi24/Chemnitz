@@ -132,9 +132,12 @@ export default function CardCarousel() {
 
     return (
         <div className="carousel" ref={carouselRef}>
+              <div className="absolute left-0 right-0 top-0 h-64 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-10"></div>
             <div className="list" ref={listRef}>
                 {slides.map((slide, index) => (
                     <div className="item" key={`slide-${index}`}>
+                        
+
                         <img src={slide.image.src} alt={slide.title} />
                         <div className="content">
                             <div className="author">{slide.author}</div>
@@ -168,7 +171,7 @@ export default function CardCarousel() {
                             if (isFront) showSlider("next");
                         }}
                     >
-                        <Transition direction="up" _duration={0.2+(index/3)}  className='w-full h-full'>
+                        <Transition direction="up" _duration={0.2 + (index / 3)} className='w-full h-full'>
                             <img src={slide.image.src} alt={slide.title} />
                             <div className="content">
                                 <div className="title">{slide.title}</div>
