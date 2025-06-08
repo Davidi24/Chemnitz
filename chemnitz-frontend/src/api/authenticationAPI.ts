@@ -14,6 +14,17 @@ export async function loginUser(email: string, password: string): Promise<User> 
     }
 }
 
+export async function loginUserWithGoogle() {
+    try {
+        const response = await axiosInstance.get(
+            '/api/auth/google',
+            { withCredentials: true }
+        )
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
 // to do
 export async function logoutUser() {
     try {

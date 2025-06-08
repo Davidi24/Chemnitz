@@ -14,3 +14,16 @@ export async function registerUser(name: string, email: string, password: string
     throw error;
   }
 }
+
+
+export async function getUser(): Promise<User> {
+  try {
+    const response = await axiosInstance.get<User>(
+      '/api/user/getUser',
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

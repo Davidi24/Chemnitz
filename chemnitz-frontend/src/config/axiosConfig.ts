@@ -17,21 +17,21 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 
-axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    const requestUrl = error.config?.url || "";
-    if (
-      error.response?.status === 401 &&
-      requestUrl !== '/api/auth/login' // skip redirect on /login 401
-    ) {
-      if (typeof window !== "undefined") {
-        window.location.href = "http://localhost:3000/auth/login";
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response: AxiosResponse) => response,
+//   (error: AxiosError) => {
+//     const requestUrl = error.config?.url || "";
+//     if (
+//       error.response?.status === 401 &&
+//       requestUrl !== '/api/auth/login' // skip redirect on /login 401
+//     ) {
+//       if (typeof window !== "undefined") {
+//         window.location.href = "http://localhost:3000/auth/login";
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 
 export default axiosInstance;

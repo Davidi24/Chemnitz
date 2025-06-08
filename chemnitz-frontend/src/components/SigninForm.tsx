@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Loading from "@/components/Common/Loading";
 import googleIcon from "../../public/assets/icons/googleIcon.png";
-import { loginUser } from "@/api/authenticationAPI";
+import { loginUser, loginUserWithGoogle } from "@/api/authenticationAPI";
 
 
 
@@ -15,13 +15,20 @@ function SigninForm() {
     const router = useRouter();
 
 
-    const handlesubmit = async (e: React.FormEvent) => {
+    const handlesubmit = async (e: React.FormEvent, withGoogle: boolean) => {
         e.preventDefault();
         try {
             setloading(true);
-            const data = await loginUser(email, password);
+            let data = null;
+            if (!withGoogle) {
+                data = await loginUser(email, password);
+                //put them in cookis
+            }
+            else {
+                //getuserInfo
+            }
+
             console.log('Login successful:', data);
-            router.replace('/')
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -90,7 +97,8 @@ function SigninForm() {
                                 <button
                                     type="submit"
                                     className="w-full flex cursor-pointer justify-center text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#0e0d0d]"
-                                    onClick={handlesubmit}
+                                    onClick={(e) => handlesubmit(e, false)}
+
                                 >
                                     {loading ? (<Loading />) : 'Sign in'}
                                 </button>
@@ -101,7 +109,8 @@ function SigninForm() {
                                     <div className="flex-grow border-t border-gray-300"></div>
                                 </div>
 
-                                <button className="flex justify-around items-center h-10  w-full hover:bg-[#e6e4e4] text-xs py-2.5 px-11 border border-transparent rounded-lg font-semibold tracking-wide uppercase mt-2 cursor-pointer" style={{ backgroundColor: '#f8f8f8', border: 'none' }}>
+                                <button onClick={(e) => handlesubmit(e, true)}
+                                    className="flex justify-around items-center h-10  w-full hover:bg-[#e6e4e4] text-xs py-2.5 px-11 border border-transparent rounded-lg font-semibold tracking-wide uppercase mt-2 cursor-pointer" style={{ backgroundColor: '#f8f8f8', border: 'none' }}>
                                     <img src={googleIcon.src} alt="" className="h-5 w-5" />
                                     <p className="text-gray-500 hover:text-gray-600">Sign in with Google</p>
                                 </button>
