@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
-dotenv.config(); 
+dotenv.config();
 
 import express from 'express';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 import { connectDB } from './config/db';
@@ -11,6 +12,14 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from "./routes/authRoutes";
 
 const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
 connectDB();
@@ -18,7 +27,6 @@ connectDB();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-
 
 app.listen(5000, () => {
   console.log('Server running at http://localhost:5000');

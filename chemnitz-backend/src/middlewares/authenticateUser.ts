@@ -7,8 +7,8 @@ export function authenticateJWT(
   res: Response,
   next: NextFunction
 ): void {
-    console.log("here")
   const token = req.cookies['access-token'];
+  console.log("is cookie: ", token)
   if (!token) {
     res.status(401).json({ message: 'Not authenticated' });
     return; 
