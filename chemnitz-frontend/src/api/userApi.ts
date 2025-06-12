@@ -16,14 +16,25 @@ export async function registerUser(name: string, email: string, password: string
 }
 
 
-export async function getUser(): Promise<User> {
+export async function getUser(cookieHeader: string): Promise<User> {
   try {
+    const headers: Record<string, string> = {};
+
+    if (cookieHeader) {
+      headers.Cookie = cookieHeader;
+    }
+
     const response = await axiosInstance.get<User>(
       '/api/user/getUser',
-      { withCredentials: true }
+      {
+        headers,
+        withCredentials: true, // Still needed for credentialed requests
+      }
     );
+
     return response.data;
   } catch (error) {
+    console.error("Error fetching user:", error);
     throw error;
   }
 }

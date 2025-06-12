@@ -4,3 +4,10 @@ export type CardHeaderType = {
   name: string;
   icon: SvgIconComponent;
 };
+
+export type MenuItemType = {
+  label: string;
+  target: string;
+  isSeparate?: boolean;
+};
+

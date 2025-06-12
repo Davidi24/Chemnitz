@@ -22,12 +22,11 @@ function SigninForm() {
             let data = null;
             if (!withGoogle) {
                 data = await loginUser(email, password);
-                //put them in cookis
+                router.replace("/")
             }
             else {
-                //getuserInfo
+                 window.location.href = "http://localhost:5000/api/auth/google";  
             }
-
             console.log('Login successful:', data);
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -114,9 +113,7 @@ function SigninForm() {
                                     <img src={googleIcon.src} alt="" className="h-5 w-5" />
                                     <p className="text-gray-500 hover:text-gray-600">Sign in with Google</p>
                                 </button>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

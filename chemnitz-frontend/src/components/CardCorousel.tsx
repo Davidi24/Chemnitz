@@ -2,79 +2,87 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import "@/styles/cardcor.css";
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 import image1 from "@/../public/assets/image/img1.png";
 import image2 from "@/../public/assets/image/img2.png";
 import image3 from "@/../public/assets/image/img3.png";
 import image4 from "@/../public/assets/image/img4.png";
+import image5 from "@/../public/assets/image/img5.png";
+import image6 from "@/../public/assets/image/img6.png";
+import image7 from "@/../public/assets/image/img7.png";
+import image8 from "@/../public/assets/image/img8.png";
 import Transition from "./Common/Transition";
 
-const originalSlides = [
+const chemnitzSlides = [
     {
-        image: image1,
-        author: "LUNDEV",
-        title: "MOUNTAIN LIFE",
-        topic: "NATURE",
+        image: image1, // Replace with a warm welcoming image
+        title: "WELCOME TO CHEMNITZ",
+        topic: "Germany",
+        tagline: "Dream, Explore, Belong",
         description:
-            "Explore the serene beauty of mountain landscapes, fresh air, and peaceful nature all around.",
+            "Welcome to Chemnitz — a city where innovation meets culture, and every corner invites discovery. It's not just a place, it's a feeling of possibility, creativity, and connection.",
     },
     {
         image: image2,
-        author: "LUNDEV",
-        title: "WILD WORLD",
-        topic: "ANIMALS",
+        title: "HEART OF CREATIVITY",
+        topic: "CULTURE",
+        tagline: "Creative, Bold, Alive",
         description:
-            "Get closer to wildlife and witness the raw beauty of nature’s most majestic creatures.",
+            "Chemnitz blends creativity, history, and innovation. As the European Capital of Culture 2025, it offers rich events, vibrant museums, and diverse architecture. The city continues to grow as a hub of expression and identity.",
     },
     {
         image: image3,
-        author: "LUNDEV",
-        title: "CITY VIBES",
-        topic: "URBAN",
+        title: "ART HISTORY",
+        topic: "MUSEUMS",
+        tagline: "Explore, Learn, Enjoy",
         description:
-            "Feel the rhythm of the city with its vibrant culture, nightlife, and architectural marvels.",
+            "From industrial exhibits to fine art and local history, Chemnitz museums offer something for every explorer. Institutions like the Kunstsammlungen and Museum Gunzenhauser add layers of depth to the city’s story.",
     },
     {
         image: image4,
-        author: "LUNDEV",
-        title: "OCEAN DEEP",
-        topic: "SEA",
+        title: "GREEN SPACES",
+        topic: "PARKS",
+        tagline: "Breathe and Relax",
         description:
-            "Dive into the mysteries of the ocean and discover the hidden world beneath the waves.",
+            "Küchwald, Schlossteich, and other green spaces offer fresh air, walking paths, and family relaxation in the heart of Chemnitz. Nature and city life blend effortlessly here.",
     },
     {
-        image: image1,
-        author: "LUNDEV",
-        title: "MOUNTAIN LIFE",
-        topic: "NATURE",
+        image: image5,
+        title: "FAMOUS MONUMENT",
+        topic: "LANDMARK",
+        tagline: "Bold and Historic",
         description:
-            "Explore the serene beauty of mountain landscapes, fresh air, and peaceful nature all around.",
+            "The 7-meter Karl Marx bust is Chemnitz’s most iconic symbol and a reminder of its past identity as Karl-Marx-Stadt. Visitors come from around the world to see this monumental presence.",
     },
     {
-        image: image2,
-        author: "LUNDEV",
-        title: "WILD WORLD",
-        topic: "ANIMALS",
+        image: image6,
+        title: "ARCHITECTURAL CHARM",
+        topic: "BUILDINGS",
+        tagline: "Old Meets New",
         description:
-            "Get closer to wildlife and witness the raw beauty of nature’s most majestic creatures.",
+            "Chemnitz’s unique architecture blends historical charm with modern design. From medieval churches to contemporary buildings, the city offers a visual journey through time.",
     },
     {
-        image: image3,
-        author: "LUNDEV",
-        title: "CITY VIBES",
-        topic: "URBAN",
+        image: image7,
+        title: "STUDENT LIFE",
+        topic: "EDUCATION",
+        tagline: "Young, Bold, Creative",
         description:
-            "Feel the rhythm of the city with its vibrant culture, nightlife, and architectural marvels.",
-    },
-    {
-        image: image4,
-        author: "LUNDEV",
-        title: "OCEAN DEEP",
-        topic: "SEA",
+            "A rising tech scene, student life, cafés, and modern culture make Chemnitz a city full of life and new ideas. It's a place where young minds thrive and communities evolve.",
+    }, {
+        image: image8,
+        title: "PEACEFUL LIVING",
+        topic: "FAMILY",
+        tagline: "Quiet, Family-Friendly",
         description:
-            "Dive into the mysteries of the ocean and discover the hidden world beneath the waves.",
+            "Chemnitz is an ideal place for raising a family. With its safe environment, well-kept parks, and great schools, the city offers a perfect balance of tranquility and modern living.",
     },
 ];
+
+
 
 export default function CardCarousel() {
     const carouselRef = useRef<HTMLDivElement>(null);
@@ -86,9 +94,8 @@ export default function CardCarousel() {
     const timeRunning = 1000;
     const timeAutoNext = 7000;
 
-    const [slides, setSlides] = useState(originalSlides);
+    const [slides, setSlides] = useState(chemnitzSlides);
 
-    // Rotated version for thumbnails: [2, 3, 4, 1]
     const slideCopy = [...slides.slice(1), slides[0]];
 
     const showSlider = (type: "next" | "prev") => {
@@ -131,22 +138,39 @@ export default function CardCarousel() {
     }, []);
 
     return (
-        <div className="carousel" ref={carouselRef}>
-              <div className="absolute left-0 right-0 top-0 h-64 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-10"></div>
-            <div className="list" ref={listRef}>
+        <div className="carousel relative" ref={carouselRef}>
+            <div className="absolute left-0 right-0 top-0 h-64 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-10"></div>
+            <div className="list " ref={listRef}>
                 {slides.map((slide, index) => (
                     <div className="item" key={`slide-${index}`}>
-                        
+
 
                         <img src={slide.image.src} alt={slide.title} />
-                        <div className="content">
-                            <div className="author">{slide.author}</div>
-                            <div className="title">{slide.title}</div>
-                            <div className="topic">{slide.topic}</div>
-                            <div className="des">{slide.description}</div>
-                            <div className="buttons">
-                                <button>SEE MORE</button>
-                                <button>SUBSCRIBE</button>
+                        <div className="content px-4 py-6">
+                            <div className="custum-shadow absolute w-[60rem] h-[50rem] bg-[radial-gradient(circle,_rgba(0,0,0,0.6)_0%,_transparent_70%)] -mt-[12rem] -ml-[15rem] rounded-full"></div>
+                            <div className="author">{slide.tagline}</div>
+                            <div className="title mt-1">{slide.title}</div>
+                            <div className="topic mt-1">{slide.topic}</div>
+                            <div className="des max-w-[60%] lg:max-w-[97%] mb-4 mt-4 flex justify-center font-medium"
+                                style={{ fontSize: "14px" }}
+                            >
+                                {slide.description}
+                            </div>
+                            <div className="buttons mt-9 border border-white ">
+                                <button className="border-white">SUBSCRIBE</button>
+                                <NotificationsActiveOutlinedIcon />
+                            </div>
+
+
+                            <div className="flex gap-8 z-[50000000] mt-[2rem]  curaselchanger relative
+            ">
+                                <button className="bg-gray-500 bg-opacity-75  p-2 rounded-full cursor-pointer hover:bg-white hover:text-black" id="prev" onClick={() => showSlider("prev")}>
+                                    <NavigateBeforeIcon />
+                                </button>
+                                <button className="bg-gray-500 bg-opacity-75  p-2 rounded-full  cursor-pointer hover:bg-white hover:text-black" id="next" onClick={() => showSlider("next")}>
+                                    <NavigateNextIcon />
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -172,6 +196,7 @@ export default function CardCarousel() {
                         }}
                     >
                         <Transition direction="up" _duration={0.2 + (index / 3)} className='w-full h-full'>
+                            <div className="absolute rounded-[20px] bottom-0 left-0 right-0 z-10 h-24 bg-gradient-to-t from-black/85 to-transparent" />
                             <img src={slide.image.src} alt={slide.title} />
                             <div className="content">
                                 <div className="title">{slide.title}</div>
@@ -187,14 +212,7 @@ export default function CardCarousel() {
 
 
 
-            <div className="arrows">
-                <button id="prev" onClick={() => showSlider("prev")}>
-                    &lt;
-                </button>
-                <button id="next" onClick={() => showSlider("next")}>
-                    &gt;
-                </button>
-            </div>
+
 
             <div className="time"></div>
         </div >

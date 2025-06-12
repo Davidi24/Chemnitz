@@ -1,6 +1,6 @@
 import React from 'react'
 import CardHeader from './CardHeader'
-import { headerData } from '@/data/CardsData';
+import { headerData } from '@/data/ComponentsData';
 import CardContainer from './CardContainer';
 
 function GridCards() {
