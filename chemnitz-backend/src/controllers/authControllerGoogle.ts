@@ -3,14 +3,14 @@ import { OAuth2Client } from 'google-auth-library';
 import { UserModel } from '../models/userModel';
 import { setAccessTokenCookie } from "../utils/CookiesManager";
 
-// Initialize the Google OAuth2 client
+
 const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:5000/api/auth/google/callback' // Adjust this if using a different domain or port
+    'http://localhost:5000/api/auth/google/callback' 
 );
 
-// Redirects user to Google for authentication
+
 export const googleAuthRedirect = (req: Request, res: Response): void => {
     const authUrl = client.generateAuthUrl({
         access_type: 'offline',

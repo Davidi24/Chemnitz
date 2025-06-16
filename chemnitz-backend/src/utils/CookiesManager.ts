@@ -7,7 +7,7 @@ export function setAccessTokenCookie(user: IUser, res: Response): void {
   res.cookie('access-token', token, {
     httpOnly: true,
     secure: true,
-    sameSite: 'lax',
+    sameSite: 'none',
     maxAge: 1000 * 60 * 60 * 24 * 7, 
   });
   console.log("cookies set succesfully")
@@ -21,7 +21,7 @@ export function clearAllCookies(req: Request, res: Response): void {
       res.clearCookie(cookieName, {
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
       });
     });
     console.log("Cookies cleared sucessfully")

@@ -13,6 +13,7 @@ a {
 .carousel {
     height: 100vh;
     min-height: 40rem;
+    max-height: 70rem;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -166,9 +167,8 @@ a {
 .carousel .list .item:nth-child(1) .content .title,
 .carousel .list .item:nth-child(1) .content .topic,
 .carousel .list .item:nth-child(1) .content .des,
-.carousel .list .item:nth-child(1) .content .buttons ,
-.carousel .list .item:nth-child(1) .content .curaselchanger
-{
+.carousel .list .item:nth-child(1) .content .buttons,
+.carousel .list .item:nth-child(1) .content .curaselchanger {
     transform: translateY(50px);
     filter: blur(20px);
     opacity: 0;
@@ -199,8 +199,8 @@ a {
     animation-delay: 1.8s !important;
 }
 
-.carousel .list .item:nth-child(1) .content .curaselchanger{
-      animation-delay: 1.9s !important;
+.carousel .list .item:nth-child(1) .content .curaselchanger {
+    animation-delay: 1.9s !important;
 }
 
 /* create animation when next click */
@@ -316,10 +316,8 @@ a {
 .carousel.prev .list .item:nth-child(2) .content .title,
 .carousel.prev .list .item:nth-child(2) .content .topic,
 .carousel.prev .list .item:nth-child(2) .content .des,
-.carousel.prev .list .item:nth-child(2) .content .buttons ,
-.carousel.prev .list .item:nth-child(2) .content .curaselchanger 
-
-{
+.carousel.prev .list .item:nth-child(2) .content .buttons,
+.carousel.prev .list .item:nth-child(2) .content .curaselchanger {
     animation: contentOut 1.5s linear 1 forwards !important;
 }
 
@@ -342,17 +340,87 @@ a {
 }
 
 
-@media (max-width: 768px) {
-    .carousel {
-       height: 101vh;
-       min-height: 800px;
-    }
+
+@media (max-width: 1200px) {
     .carousel .list .item .content {
-           left: 72%;
-            top: 12%;
+        left: 30%;
+        top: 12%;
     }
+
+    .carousel {
+        height: 101vh;
+
+    }
+
     .thumbnail {
         bottom: 20px;
     }
 }
 
+
+
+@media (max-width: 1000px) {
+    .carousel .list .item .content {
+        left: 30%;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .carousel .list .item .content {
+        left: 38%;
+    }
+}
+
+@media (max-width: 760px) {
+    .carousel .list .item .content {
+        left: 41%;
+    }
+}
+
+@media (max-width: 678px) {
+    .carousel .list .item .content {
+        left: 45%;
+    }
+}
+
+@media (max-width: 615px) {
+    .carousel .list .item .content {
+        left: 50%;
+    }
+
+    .carousel {
+        min-height: 51rem;
+    }
+}
+
+
+@media (max-width: 560px) {
+    .carousel .list .item .content {
+        left: 55%;
+    }
+    
+}
+
+@media (max-width: 500px) {
+    .carousel .list .item .content {
+        left: 65%;
+        top: 9%
+    }
+
+    .thumbnail {
+        left: 18%;
+    }
+}
+
+@media (max-width: 430px) {
+    .carousel .list .item .content {
+        left: 67%;
+    }
+}
+
+@media (max-width: 390px) {
+    .carousel .list .item .content {
+        left: 75%;
+    }
+}

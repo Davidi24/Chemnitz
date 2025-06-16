@@ -1,15 +1,12 @@
-// routes/authRoutes.js
-
 import express from 'express';
-import {  login, logout } from '../controllers/authControllerManual';
+import { login, logout } from '../controllers/authControllerManual';
 import { googleAuthCallback, googleAuthRedirect } from '../controllers/authControllerGoogle';
 
-const authRoute = express.Router();
+const authRoutes = express.Router();
 
-authRoute.post('/login', login);
-authRoute.post('/logout', logout);
+authRoutes.post('/login', login);
+authRoutes.post('/logout', logout);
+authRoutes.get('/google', googleAuthRedirect);
+authRoutes.get('/google/callback', googleAuthCallback);
 
-authRoute.get('/google', googleAuthRedirect);  // Redirect to Google
-authRoute.get('/google/callback', googleAuthCallback); 
-
-export default authRoute;
+export default authRoutes;

@@ -41,10 +41,11 @@ function Header({ user }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  
   return (
     <header
       className={`
-        absolute z-[500] right-0 left-0 
+        absolute w-full z-[500] right-0 left-0 
         transition-all duration-1000 ease-in-out 
         ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
         ${isScrolled ? "h-[3rem]" : "h-[4rem]"}

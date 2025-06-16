@@ -1,42 +1,45 @@
-// app/page.tsx
 import CardCorousel from "@/components/CardCorousel";
 import TestComponent from "@/components/TestComponent";
 import Header from "@/components/Header/Header";
 import GridCards from "@/components/gridcards/GridCards";
 import About from "@/components/About";
-import { User } from "@/types/User";
+import { cookies } from "next/headers";
+import { getUser } from "@/api/userApi";
+import Map from "@/components/Map/Map";
 
 export default async function Home() {
-  let user: User | null = null;
-
+  const cookieStore = cookies();
+  const accessToken = (await cookieStore).get("access-token")?.value;
+  let user = null;
   try {
-    const res = await fetch("http://localhost:5000/api/user/getUser", {
-      // credentials option has no effect on server-side fetch in Next.js
-      cache: "no-store", // optional: prevents stale user data in SSR
-    });
-
-    if (res.ok) {
-      user = await res.json();
+    if (accessToken) {
+      user = await getUser(accessToken);
+      console.log("User:", user);
     } else {
-      console.error("Failed to fetch user:", res.statusText);
+      console.log("No access-token found in cookies.");
     }
-  } catch (e) {
-    console.error("Error fetching user:", e);
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
   }
 
   return (
-    <div className="flex flex-col w-full justify-center">
-      <div className="max-w-[400rem]">
-        <Header user={user} />
-        <CardCorousel />
-        <div className="px-8 flex flex-col gap-y-8">
-          {/* <div className="mt-20">
-            <About />
-          </div> */}
-          {/* <div className="mt-12">
-            <GridCards />
-          </div> */}
-          <TestComponent />
+    <div className="w-screen">
+      <div className="flex  justify-center  ">
+        <div className="max-w-[100rem] relative w-full ">
+          <Header user={user} />
+          <CardCorousel />
+          <div className="px-8 flex flex-col gap-y-8">
+            <div className="mt-20">
+              <About />
+            </div>
+            <div className="mt-12">
+              <GridCards />
+            </div>
+            <div>
+              <Map />
+            </div>
+            <TestComponent />
+          </div>
         </div>
       </div>
     </div>
