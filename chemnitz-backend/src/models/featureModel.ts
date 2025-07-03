@@ -1,40 +1,70 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema, Model } from 'mongoose';
 
-export interface FeatureProperties {
-  [key: string]: string | number | boolean | null;
+export interface Review {
+  userEmail: string;
+  rating: number;
+  comment: string;
+  createdAt: Date;
 }
 
-export interface FeatureGeometry {
-  type: 'Point' | 'LineString' | 'Polygon';
-  coordinates: number[];
-}
-
-export interface IFeature extends Document {
-  type: 'Feature';
+// 2. FeatureItem Interface
+export interface FeatureItem {
+  type: string;
   id: string;
-  properties: FeatureProperties;
-  geometry: FeatureGeometry;
+  properties: Record<string, any>;
+  geometry: {
+    type: string;
+    coordinates: number[];
+  };
+  reviews?: Review[];
+  averageRating?: number;
 }
 
-const featureSchema = new Schema<IFeature>({
-  type: { type: String, default: 'Feature' },
-  id: { type: String, required: true },
-  properties: {
-    type: Map,
-    of: Schema.Types.Mixed,
-    required: true,
+// 3. FeatureDocument Interface
+export interface FeatureDocument extends Document {
+  type: string;
+  features: FeatureItem[];
+}
+
+// 4. Review Schema
+const ReviewSchema = new Schema<Review>(
+  {
+    userEmail: { type: String, required: true },
+    rating: { type: Number, min: 1, max: 5, required: true },
+    comment: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
   },
-  geometry: {
-    type: {
-      type: String,
-      enum: ['Point', 'LineString', 'Polygon'],
-      required: true,
+  { _id: false }
+);
+
+// 5. FeatureItem Schema
+const FeatureItemSchema = new Schema<FeatureItem>(
+  {
+    type: { type: String, required: true },
+    id: { type: String, required: true },
+    properties: { type: Schema.Types.Mixed, required: true },
+    geometry: {
+      type: {
+        type: String,
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
+    reviews: { type: [ReviewSchema], default: [] },
+    averageRating: { type: Number, default: null },
   },
+  { _id: false }
+);
+
+// 6. Feature Schema
+const FeatureSchema = new Schema<FeatureDocument>({
+  type: { type: String, required: true },
+  features: { type: [FeatureItemSchema], default: [] },
 });
 
-export const Feature = mongoose.model<IFeature>('Feature', featureSchema);
+// 7. Model Export
+export const Feature: Model<FeatureDocument> =
+  mongoose.models.Feature || mongoose.model<FeatureDocument>('Feature', FeatureSchema);

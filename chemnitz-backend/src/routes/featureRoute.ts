@@ -2,10 +2,12 @@
 
 import express from 'express';
 
-import { getFeaturesByCategory } from '../controllers/FeatureController';
+import { getFeaturesByCategory, getFeatureById, getFeaturesByFuzzyName } from "../controllers/FeatureController";
 const featureRoute = express.Router();
 
-featureRoute.get('/category/:categoryId', getFeaturesByCategory);
+featureRoute.get('/category/:field/:value', getFeaturesByCategory);
+featureRoute.get('/id/:id', getFeatureById);
+featureRoute.get('/fuzzy-name/:name', getFeaturesByFuzzyName);
 
 export default featureRoute;
 

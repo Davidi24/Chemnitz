@@ -58,7 +58,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       res.status(401).json({ message: 'Password not set for manual login' });
       return;
     }
-
+console.log("here")
     setAccessTokenCookie(user, res);
     res.status(200).json({ message: 'Login successful' });
   } catch (err) {
@@ -68,6 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const logout = (req: Request, res: Response): void => {
+
   try {
     clearAllCookies(req, res);
     res.status(200).json({ message: 'Logout successful' });
@@ -75,4 +76,5 @@ export const logout = (req: Request, res: Response): void => {
     console.error('Logout error:', error);
     res.status(500).json({ message: 'Logout failed' });
   }
+
 };

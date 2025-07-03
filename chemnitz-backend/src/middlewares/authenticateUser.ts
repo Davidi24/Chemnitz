@@ -5,10 +5,11 @@ import { AuthenticatedRequest } from '../types/userTypes';
 export function authenticateJWT(
   req: AuthenticatedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   const token = req.cookies['access-token'];
-  console.log("is cookie: ", token)
+  console.log("Cookie from request: ", token)
+  console.log('')
   if (!token) {
     res.status(401).json({ message: 'Not authenticated' });
     return; 
@@ -19,7 +20,6 @@ export function authenticateJWT(
     res.status(401).json({ message: 'Invalid or expired token' });
     return;
   }
-
   req.user = {
     email: payload.email,
     roles: payload.roles,

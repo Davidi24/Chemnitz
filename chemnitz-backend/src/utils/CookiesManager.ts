@@ -3,28 +3,32 @@ import { UserModel, IUser } from '../models/userModel';
 import { generateToken } from './jwtConfig';
 
 export function setAccessTokenCookie(user: IUser, res: Response): void {
-  const token = generateToken(user, 3600);
+  const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;      // 604800 seconds
+  const SEVEN_DAYS_IN_MS = 1000 * SEVEN_DAYS_IN_SECONDS; // 604800000 ms
+
+  const token = generateToken(user, SEVEN_DAYS_IN_SECONDS);
+  console.log("Token Created: ", token)
   res.cookie('access-token', token, {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    maxAge: 1000 * 60 * 60 * 24 * 7, 
+    secure: false,       // Set to true in production!
+    sameSite: 'lax',
+    maxAge: SEVEN_DAYS_IN_MS,
   });
-  console.log("cookies set succesfully")
+  console.log(token)
+  console.log("cookies set successfully")
 }
 
 
-export function clearAllCookies(req: Request, res: Response): void {
-  const cookies = req.cookies;
-  if (cookies) {
-    Object.keys(cookies).forEach(cookieName => {
-      res.clearCookie(cookieName, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-      });
+export function clearAllCookies(req: Request, res: Response) {
+  Object.keys(req.cookies).forEach((name) => {
+    res.cookie(name, '', {
+      httpOnly: true,
+      secure: false,         // true in production
+      sameSite: 'lax',
+      expires: new Date(0),  // Expire immediately
+      path: '/',
     });
-    console.log("Cookies cleared sucessfully")
-  }
+  });
+  res.send({ message: "All cookies cleared with Date(0)" });
 }
 

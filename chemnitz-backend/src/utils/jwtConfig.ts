@@ -3,7 +3,7 @@ import { IUser } from '../models/userModel';
 import { Role } from '../types/userTypes';
 
 const JWT_SECRET: jwt.Secret = process.env.JWT_SECRET || 'fallback-secret-key';
-console.log("secret key = ", JWT_SECRET);
+// console.log("secret key = ", JWT_SECRET);
 
 interface TokenPayload {
   email: string;
