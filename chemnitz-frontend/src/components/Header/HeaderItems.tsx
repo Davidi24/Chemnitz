@@ -1,39 +1,44 @@
 'use client';
 
-import {  useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { MenuItemType } from "@/types/ComponetsType";
 
-interface HederItemsProps {
-  menuItems: MenuItemType[]
+interface HeaderItemsProps {
+  menuItems: MenuItemType[];
+  activeItem: string;
+  setActiveItem: (target: string) => void;
 }
 
-const HeaderItems = ({menuItems} : HederItemsProps) => {
-  const [activeItem, setActiveItem] = useState('profile');
-
+const HeaderItems = ({ menuItems, activeItem, setActiveItem }: HeaderItemsProps) => {
 
 
   const handleItemClick = (target: string) => {
     setActiveItem(target);
+
+    // Try to scroll to the div with id=target
+    const el = document.getElementById(target);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
     <div className="flex gap-8">
       <div className="text-sm font-medium text-center text-white">
         <ul className="flex flex-wrap">
-          {menuItems.map(({ label, target }) => (
+          {menuItems.map(({ label, target, icon }) => (
             <li key={target} className="me-2">
-              <Link
-                href={`#${target}`}
+              <button
+                type="button"
                 onClick={() => handleItemClick(target)}
-                className={`inline-block p-4 rounded-t-lg transition-colors duration-200 cursor-pointer ${
-                  activeItem === target
-                    ? 'text-[#df6c36]'
-                    : 'hover:text-gray-300 text-white'
-                }`}
+                className={`p-4 rounded-t-lg transition-colors duration-200 cursor-pointer flex items-center gap-2 ${activeItem === target
+                    ? "text-[#df6c36]"
+                    : "hover:text-gray-300 text-white"
+                  }`}
               >
-                {label}
-              </Link>
+                {icon && <span className="text-lg">{icon}</span>}
+                <span className="mt-1">{label}</span>
+              </button>
             </li>
           ))}
         </ul>

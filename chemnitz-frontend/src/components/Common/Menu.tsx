@@ -1,81 +1,83 @@
-import React, { useState, useEffect, useRef } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import Link from "next/link";
-import DropDown from './LanguageDropDown';
-import { MenuItemType } from '@/types/ComponetsType';
+"use client";
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import { HeaderDataType } from '@/types/ComponetsType';
 
 interface MenuProps {
-    menuItems: MenuItemType[]
+    headerData: HeaderDataType[];
+    MenuIconComponent: ReactNode;
+    position?: 'left' | 'right';
+    backgroundColor?: string;   // e.g., 'bg-red-600'
+    textColor?: string;         // e.g., 'text-white'
+    selectedColor?: string;     // e.g., 'text-[#df6c36]'
+    onCategoryChange: (category: string, idx: number) => void;
+    selectedIndex: number;
 }
 
-function Menu({ menuItems }: MenuProps) {
+function Menu({
+    headerData,
+    MenuIconComponent,
+    position = 'right',
+    backgroundColor = 'bg-gray-800',
+    textColor = 'text-white',
+    selectedColor = 'text-[#df6c36]',
+    onCategoryChange,
+    selectedIndex
+}: MenuProps) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [activeItem, setActiveItem] = useState('profile');
-    const [isDropDownOpen, setisDropDownOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
 
-    const handleItemClick = (target: string) => {
-        setActiveItem(target);
-        setIsDropdownOpen(false); // optional: close menu after click
+    const handleItemClick = (target: string, idx: number) => {
+        onCategoryChange(target.toLowerCase(), idx);
+        setIsDropdownOpen(false);
     };
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false);
             }
         }
-
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    const positionClass = position === 'left' ? 'left-0' : 'right-0';
 
     return (
-        <div className="relative" ref={menuRef}>
+        <div className="relative z-50" ref={menuRef}>
             <button
-                className="inline-flex items-center p-2 text-sm font-medium text-center"
+                className="inline-flex items-center text-sm font-medium text-center"
                 onClick={toggleDropdown}
             >
-                <MenuIcon />
+                {MenuIconComponent}
             </button>
 
             <div
                 className={`z-10 ${isDropdownOpen ? 'block' : 'hidden'} 
-                absolute top-full right-0 mt-2 backdrop-filter backdrop-blur-2xl 
-                divide-y divide-gray-700 rounded-lg shadow-sm w-44 
-                ${isDropDownOpen ? "h-[19rem]" : "h-[16rem]"}`}
+                absolute top-full ${positionClass} mt-2 backdrop-filter bg-black opacity-90 rounded-lg shadow-sm w-56
+                ${backgroundColor} transition-all duration-300`}
             >
                 <ul className="py-2">
-                    {menuItems.map((item) => (
-                        <React.Fragment key={item.target}>
-                            {!item.isSeparate ? (
-                                <li>
-                                    <Link
-                                        href={`#${item.target}`}
-                                        onClick={() => handleItemClick(item.target)}
-                                        className={`block px-4 py-2 transition-colors duration-200 
-            ${activeItem === item.target
-                                                ? 'text-[#df6c36]'
-                                                : 'hover:text-gray-300 text-white'
-                                            }`}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                </li>
-                            ) : (
-                                <div className="py-2 border-t border-gray-700 px-4">
-                                    <DropDown setCheckIfOpen={setisDropDownOpen} />
-                                </div>
-                            )}
-                        </React.Fragment>
-                    ))}
-
+                    {headerData.map((item, idx) => {
+                        const Icon = item.icon;
+                        return (
+                            <li key={item.name}>
+                                <button
+                                    type="button"
+                                    onClick={() => handleItemClick(item.name, idx)}
+                                    className={`w-full text-left block px-4 py-2 transition-colors duration-200 
+                                        ${selectedIndex === idx ? selectedColor : `${textColor} hover:text-gray-300`}`}
+                                >
+                                    <div className='flex items-center gap-3 whitespace-nowrap'>
+                                        {Icon && <Icon fontSize="small" className="opacity-90" />}
+                                        <div>{item.name.replace('_', ' ')}</div>
+                                    </div>
+                                </button>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>

@@ -1,47 +1,38 @@
 import CardCorousel from "@/components/CardCorousel";
 import TestComponent from "@/components/TestComponent";
 import Header from "@/components/Header/Header";
-import GridCards from "@/components/gridcards/GridCards";
-import About from "@/components/About";
+import PlacesContainer from "@/components/gridcards/PlacesContainer";
+import About from "@/components/About/About";
 import { cookies } from "next/headers";
 import { getUser } from "@/api/userApi";
 import Map from "@/components/Map/Map";
+import { UserProvider } from "@/components/Auth";
+import Footer from "@/components/Footer";
+import SmallHeader from "@/components/Header/SmallHeader";
 
 export default async function Home() {
-  const cookieStore = cookies();
-  const accessToken = (await cookieStore).get("access-token")?.value;
-  let user = null;
-  try {
-    if (accessToken) {
-      user = await getUser(accessToken);
-      console.log("User:", user);
-    } else {
-      console.log("No access-token found in cookies.");
-    }
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-  }
-
   return (
-    <div className="w-screen">
+    <div className="w-screen max-w-full">
       <div className="flex  justify-center  ">
-        <div className="max-w-[100rem] relative w-full ">
-          <Header user={user} />
+        <div className="max-w-[100rem] relative w-full " id="home">
+          <Header />
           <CardCorousel />
-          <div className="px-8 flex flex-col gap-y-8">
-            <div className="mt-20">
+          <div className="px-2 lg:px-4 flex flex-col gap-y-8">
+            <div className="mt-24 xl:px-8" id="about">
               <About />
             </div>
-            <div className="mt-12">
-              <GridCards />
+            <div className="mt-12" id="map">
+              <PlacesContainer />
             </div>
-            <div>
-              <Map />
+            <div className="" id="contacts"></div>
+            <div id="contacts">
+              <Footer />
             </div>
-            <TestComponent />
+            {/* <TestComponent /> */}
           </div>
         </div>
       </div>
     </div>
+
   );
 }

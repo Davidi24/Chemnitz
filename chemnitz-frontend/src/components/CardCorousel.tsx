@@ -128,14 +128,14 @@ export default function CardCarousel() {
         }, timeAutoNext);
     };
 
-    // useEffect(() => {
-    //     autoNextRef.current = setTimeout(() => {
-    //         showSlider("next");
-    //     }, timeAutoNext);
-    //     return () => {
-    //         if (autoNextRef.current) clearTimeout(autoNextRef.current);
-    //     };
-    // }, []);
+    useEffect(() => {
+        autoNextRef.current = setTimeout(() => {
+            showSlider("next");
+        }, timeAutoNext);
+        return () => {
+            if (autoNextRef.current) clearTimeout(autoNextRef.current);
+        };
+    }, []);
 
     return (
         <div className="carousel relative" ref={carouselRef}>

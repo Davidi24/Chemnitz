@@ -12,13 +12,12 @@ export const headerData:CardHeaderType[] = [
     { name: 'Shoppingg', icon: ShoppingCartIcon },
 ];
 
+import { FaHome, FaInfoCircle, FaMapMarkedAlt, FaEnvelope } from 'react-icons/fa';
 
 //Menu Data
-export const menuItemData:MenuItemType[] =[
-        { label: 'Profile', target: 'profile' },
-        { label: 'Dashboard', target: 'dashboard' },
-        { label: 'Settings', target: 'settings' },
-        { label: 'Contacts', target: 'contacts' },
-        { label: 'Supertest', target: 'supertest' },
-        { label: 'Help Center', target: 'help', isSeparate: true },
-]
+export const menuItemData: MenuItemType[] = [
+  { label: 'Home', target: 'home', icon: <FaHome /> },
+  { label: 'About', target: 'about', icon: <FaInfoCircle /> },
+  { label: 'Map', target: 'map', icon: <FaMapMarkedAlt /> },
+  { label: 'Contacts', target: 'contacts', icon: <FaEnvelope /> },
+];

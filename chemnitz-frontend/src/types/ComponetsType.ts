@@ -9,5 +9,13 @@ export type MenuItemType = {
   label: string;
   target: string;
   isSeparate?: boolean;
+  icon?: React.ReactNode;
 };
 
+import { ComponentType } from "react";
+
+export type HeaderDataType = {
+  name: string;
+  icon?: ComponentType<any>; 
+  type: string;
+};

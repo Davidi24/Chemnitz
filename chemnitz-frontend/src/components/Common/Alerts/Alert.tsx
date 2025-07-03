@@ -2,23 +2,35 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 
+interface AlertProps {
+  title: string;
+  text: string;
+  color: string;
+  onClose?: () => void;   // <-- add this!
+}
+
 function Alert({
   title,
   text,
   color,
-}: {
-  title: string;
-  text: string;
-  color: string;
-}) {
+  onClose,
+}: AlertProps) {
   const [isVisible, setIsVisible] = useState(true);
 
+  // Hide after 5s and call onClose
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
+      onClose && onClose();
     }, 5000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [onClose]);
+
+  // When manually closed, also call onClose
+  const handleClose = () => {
+    setIsVisible(false);
+    onClose && onClose();
+  };
 
   if (!isVisible) return null;
 
@@ -29,7 +41,6 @@ function Alert({
         className="w-full max-w-md p-6 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400 relative"
         role="alert"
       >
-        {/* ... rest of your alert JSX ... */}
         <div className="flex">
           <div className="inline-flex items-center justify-center flex-shrink-0 w-10 h-10 text-blue-500 bg-blue-100 rounded-lg dark:text-blue-300 dark:bg-blue-900">
             <AnnouncementOutlinedIcon />
@@ -44,7 +55,7 @@ function Alert({
           <button
             type="button"
             className="ms-auto -mx-2 -my-2 bg-white items-center justify-center flex-shrink-0 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-2 hover:bg-gray-100 inline-flex h-10 w-10 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-            onClick={() => setIsVisible(false)}
+            onClick={handleClose}
             aria-label="Close"
           >
             <span className="sr-only">Close</span>
@@ -73,7 +84,6 @@ function Alert({
             style={{ background: `${color}` }}
           ></div>
         </div>
-
       </div>
     </div>,
     document.body

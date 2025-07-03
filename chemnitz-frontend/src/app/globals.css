@@ -19,3 +19,13 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@media (min-width: 400px) {
+  .custom-flex {
+    display: flex !important;
+  }
+  .custom-hidden {
+    display: none !important;
+  }
+}

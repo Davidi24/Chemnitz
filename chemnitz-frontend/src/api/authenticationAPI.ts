@@ -25,13 +25,14 @@ export async function loginUserWithGoogle() {
         throw error;
     }
 }
-// to do
+
 export async function logoutUser() {
     try {
         const response = await axiosInstance.post(
             '/api/auth/logout',
             { withCredentials: true }
         );
+        console.log(response.data)
         return response.data;
     } catch (error) {
         throw error;

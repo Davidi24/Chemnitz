@@ -14,6 +14,21 @@ function SigninForm() {
     const [loading, setloading] = useState(false)
     const router = useRouter();
 
+     const doLogin = async (email: string, password: string) => {
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
+        });
+        if (!res.ok) throw new Error('Login failed');
+        const data = await res.json();
+        return data;
+      } catch (err: any) {
+        setError(err.message || 'Login failed');
+      }
+    };
 
     const handlesubmit = async (e: React.FormEvent, withGoogle: boolean) => {
         e.preventDefault();
@@ -21,7 +36,7 @@ function SigninForm() {
             setloading(true);
             let data = null;
             if (!withGoogle) {
-                data = await loginUser(email, password);
+                data = await doLogin(email, password);
                 router.replace("/")
             }
             else {
