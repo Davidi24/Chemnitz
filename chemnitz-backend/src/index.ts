@@ -12,7 +12,7 @@ import userRoutes from './routes/userRoutes';
 import authRoute from './routes/authRoutes';
 import featureRoute from './routes/featureRoute';
 
-import { seedFeatures } from './utils/seedFeatures';
+
 
 const app = express();
 
@@ -27,8 +27,6 @@ app.use(cookieParser());
 
 async function startServer() {
   await connectDB();
-  await seedFeatures();
-
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   app.use('/api/user', userRoutes);
   app.use('/api/auth', authRoute);

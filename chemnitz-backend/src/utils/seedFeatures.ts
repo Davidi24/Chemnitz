@@ -1,24 +1,33 @@
+import mongoose from 'mongoose';
+import { Feature } from '../models/featureModel';
 import fs from 'fs/promises';
 import path from 'path';
-import { Feature } from '../models/featureModel';
 
-export async function seedFeatures() {
-  const count = await Feature.countDocuments();
-  if (count > 0) {
-    console.log('Features already seeded.');
-    return;
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;
+
+export async function connectDB(): Promise<void> {
+  try {
+    if (!MONGO_URI) {
+      console.error('Please provide the Mongo URI');
+      process.exit(1);
+    }
+
+    await mongoose.connect(MONGO_URI);
+    console.log('Connected to MongoDB');
+
+    if (mongoose.connection.db) {
+      const collections = await mongoose.connection.db.listCollections({ name: 'features' }).toArray();
+      if (collections.length === 0) {
+        await Feature.createCollection();
+        console.log('Feature collection created successfully');
+        await seedFeatures();
+      } else {
+        console.log('Feature collection already exists');
+      }
+    }
+
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
   }
-
-  // Read the geojson file from the root
-  const filePath = path.join(process.cwd(), 'Chemnitz.geojson');
-  const fileData = await fs.readFile(filePath, 'utf-8');
-  const geojson = JSON.parse(fileData);
-
-  // Insert into MongoDB
-  await Feature.create({
-    type: geojson.type,
-    features: geojson.features,
-  });
-
-  console.log('GeoJSON features seeded into database.');
 }
