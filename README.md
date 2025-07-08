@@ -1,4 +1,4 @@
-﻿\# Chemnitz Cultural Sites
+# Chemnitz Cultural Sites
 
 
 
