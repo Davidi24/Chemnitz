@@ -1,92 +1,120 @@
-﻿Chemnitz Cultural Sites
+﻿\# Chemnitz Cultural Sites
+
+
+
 A modern web application for exploring, searching, and interacting with the cultural sites of Chemnitz, Germany.
-Users can view locations on an interactive map, browse details, save favorites, and leave reviews. Built with the MERN stack, the platform offers seamless authentication (including Google OAuth), fuzzy search, and a fully responsive user interface.
 
-Features
-Interactive Map: Explore Chemnitz’s cultural locations using Leaflet.
 
-Category Filtering: Instantly filter sites by type (museum, gallery, restaurant, etc.).
 
-Fuzzy Search: Search places by name with real-time suggestions.
+\## 🛠️ Installation
 
-User Authentication: Register/login via email/password or Google.
 
-Favorites: Save and manage your favorite locations.
 
-Reviews: Read and write reviews for any place.
+1\. \*\*Clone the repository:\*\*
 
-Responsive Design: Fully mobile-friendly with Tailwind CSS.
+&nbsp;  ```bash
 
-Personal Profile: View and update your user info and favorites.
+&nbsp;  git clone https://github.com/Davidi24/Chemnitz.git
 
-Tech Stack
-Frontend: Next.js (React, TypeScript), Tailwind CSS, react-leaflet, Axios
+&nbsp;  cd Chemnitz
 
-Backend: Node.js, Express.js, TypeScript
+&nbsp;  ```
 
-Database: MongoDB (Mongoose)
 
-Authentication: JWT, Google OAuth 2.0
 
-API Documentation: Swagger
+2\. \*\*Set up the backend:\*\*
 
-Getting Started
-Prerequisites
-Node.js & npm
+&nbsp;  - Go to the backend folder:
 
-MongoDB (local or MongoDB Atlas)
+&nbsp;    ```bash
 
-Google OAuth credentials (for social login)
+&nbsp;    cd backend
 
-Environment Variables
-Create a .env file in both /backend and /frontend directories as needed.
+&nbsp;    ```
 
-Example for backend:
+&nbsp;  - Install dependencies:
 
-ini
-Copy
-Edit
-MONGO_URI=mongodb://localhost:27017/Chemnitz
-JWT_SECRET=your_jwt_secret
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-PORT=5000
-Example for frontend:
+&nbsp;    ```bash
 
-ini
-Copy
-Edit
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
-Installation
-1. Clone the repository:
-bash
-Copy
-Edit
-git clone https://github.com/Davidi24/Chemnitz.git
-cd Chemnitz
-2. Install backend dependencies:
-bash
-Copy
-Edit
-cd backend
-npm install
-3. Install frontend dependencies:
-bash
-Copy
-Edit
-cd ../frontend
-npm install
-Running Locally
-Start MongoDB (if using local):
-bash
-Copy
-Edit
-mongod
-Start the backend:
-bash
-Copy
-Edit
-cd backend
-npm run dev
+&nbsp;    npm install
+
+&nbsp;    ```
+
+&nbsp;  - Create a `.env` file in `/backend` with:
+
+&nbsp;    ```env
+
+&nbsp;    PORT=5000
+
+&nbsp;    MONGO\_URI=mongodb://localhost:27017/Chemnitz
+
+&nbsp;    JWT\_SECRET=
+
+&nbsp;    GOOGLE\_CLIENT\_ID=
+
+&nbsp;    GOOGLE\_CLIENT\_SECRET=
+
+&nbsp;    ```
+
+&nbsp;    \_Fill in Google credentials if using Google OAuth. You can leave them empty for local testing.\_
+
+&nbsp;  - Make sure your MongoDB is running locally (or on Atlas).
+
+
+
+&nbsp;  - Start the backend server:
+
+&nbsp;    ```bash
+
+&nbsp;    npm run dev
+
+&nbsp;    ```
+
+
+
+3\. \*\*Set up the frontend:\*\*
+
+&nbsp;  - Go to the frontend folder:
+
+&nbsp;    ```bash
+
+&nbsp;    cd ../frontend
+
+&nbsp;    ```
+
+&nbsp;  - Install dependencies (use legacy-peer-deps to avoid version conflicts):
+
+&nbsp;    ```bash
+
+&nbsp;    npm install --legacy-peer-deps
+
+&nbsp;    ```
+
+&nbsp;  - Make sure the API URL in your frontend `.env` matches the backend:
+
+&nbsp;    ```env
+
+&nbsp;    NEXT\_PUBLIC\_API\_URL=http://localhost:5000
+
+&nbsp;    NEXT\_PUBLIC\_GOOGLE\_CLIENT\_ID=
+
+&nbsp;    ```
+
+&nbsp;  - Start the frontend:
+
+&nbsp;    ```bash
+
+&nbsp;    npm run dev
+
+&nbsp;    ```
+
+
+
+4\. \*\*Notes:\*\*
+
+&nbsp;  - \*\*CORS Policy:\*\* Ensure the frontend’s `NEXT\_PUBLIC\_API\_URL` and backend’s `PORT` are matching.
+
+&nbsp;  - \*\*Database:\*\* The backend will create the database (`Chemnitz`) automatically when it runs.
+
+&nbsp;  - \*\*Google OAuth:\*\* Leave credentials empty for local use, or add your own keys for real authentication.
 

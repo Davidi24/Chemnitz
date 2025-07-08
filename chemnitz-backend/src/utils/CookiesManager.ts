@@ -29,6 +29,5 @@ export function clearAllCookies(req: Request, res: Response) {
       path: '/',
     });
   });
-  res.send({ message: "All cookies cleared with Date(0)" });
 }
 

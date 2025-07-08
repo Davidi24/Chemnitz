@@ -73,7 +73,6 @@ export const logout = (req: Request, res: Response): void => {
     clearAllCookies(req, res);
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
-    console.error('Logout error:', error);
     res.status(500).json({ message: 'Logout failed' });
   }
 
