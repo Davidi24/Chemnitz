@@ -4,51 +4,68 @@ import { useRouter } from 'next/navigation';
 import Loading from "@/components/Common/Loading";
 import googleIcon from "../../public/assets/icons/googleIcon.png";
 import { loginUser, loginUserWithGoogle } from "@/api/authenticationAPI";
+import { useUser } from "./Auth";
+import { User } from "@/types/User";
 
 
 
 function SigninForm() {
+   const { user, setUser } = useUser();
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setloading] = useState(false)
     const router = useRouter();
 
-     const doLogin = async (email: string, password: string) => {
-      try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ email, password }),
-        });
-        if (!res.ok) throw new Error('Login failed');
-        const data = await res.json();
-        return data;
-      } catch (err: any) {
-        setError(err.message || 'Login failed');
-      }
+    const doLogin = async (email: string, password: string): Promise<User> => {
+        try {
+            const res = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email, password }),
+            });
+            if (!res.ok) {
+                // Try to extract error message from response if possible
+                let msg = 'Login failed';
+                try {
+                    const errorData = await res.json();
+                    if (errorData?.message) msg = errorData.message;
+                } catch { }
+                throw new Error(msg);
+            }
+            const data: User = await res.json();
+            setUser(data)
+            return data;
+        } catch (err: any) {
+            // Re-throw to be caught in handlesubmit
+            throw err;
+        }
     };
+
 
     const handlesubmit = async (e: React.FormEvent, withGoogle: boolean) => {
         e.preventDefault();
+        setError(""); // clear previous error
+
+
         try {
             setloading(true);
-            let data = null;
             if (!withGoogle) {
-                data = await doLogin(email, password);
-                router.replace("/")
-            }
-            else {
-                 window.location.href = "http://localhost:5000/api/auth/google";  
-            }
-            console.log('Login successful:', data);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
+                if (!email.trim() || !password) {
+                    setError('Please enter both email and password.');
+                    return;
+                }
+                const data = await doLogin(email, password);
+                setloading(false);
+                router.replace("/");
+
             } else {
-                setError('An unexpected error occurred');
+                setloading(false);
+                window.location.href = "http://localhost:5000/api/auth/google";
             }
+        } catch (err: any) {
+            setError(err.message || 'Login failed');
             setloading(false);
         }
     };

@@ -18,7 +18,7 @@ export interface FeatureItem {
   type: string;
   properties: FeatureProperties;
   geometry: FeatureGeometry;
-  reviews?: Review[];
+  reviews: Review[];
   averageRating?: number;
 }
 

@@ -42,8 +42,8 @@ function PlacesContainer() {
   // Called when user clicks a category tab
   const fetchCategory = async (category: string, idx: number = -1) => {
     setShowFavourites(false);
-    setSearchActive(false); // disables search highlight
-    setSearchResetSignal(prev => prev + 1); // triggers search input clear
+    setSearchActive(false);
+    setSearchResetSignal(prev => prev + 1);
     setSelectedIndex(idx);
     setCategory(category);
     setActiveFeatureId(null);
@@ -75,6 +75,7 @@ function PlacesContainer() {
     } catch (err: any) {
       if (err.message === "unauthorized") {
         setShowAlert(false);
+        setShowFavourites(false);
         setTimeout(() => setShowAlert(true), 20);
       }
     } finally {
@@ -117,6 +118,7 @@ function PlacesContainer() {
         showFavourites={showFavourites}
         onShowFavourites={handleShowFavourites}
         searchResetSignal={searchResetSignal}
+        showAlert={showAlert}
       />
 
       <div className="flex flex-col w-full justify-between mt-8 xl:flex-row">
@@ -135,6 +137,7 @@ function PlacesContainer() {
             loading={loading}
             activeFeatureId={activeFeatureId}
             setActiveFeatureId={setActiveFeatureId}
+            category={category}
           />
         </div>
       </div>

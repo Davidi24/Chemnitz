@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { use, useRef, useState } from 'react';
 import { User } from '@/types/User';
 
 interface UserInfoProps {
@@ -7,10 +7,7 @@ interface UserInfoProps {
 }
 
 const randomAvatars = [
-  "https://randomuser.me/api/portraits/men/1.jpg",
-  "https://randomuser.me/api/portraits/women/1.jpg",
-  "https://randomuser.me/api/portraits/men/5.jpg",
-  "https://randomuser.me/api/portraits/women/5.jpg",
+  "https://www.gravatar.com/avatar/?d=mp&f=y",
 ];
 
 const getRandomAvatar = () =>

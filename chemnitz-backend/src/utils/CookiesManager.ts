@@ -7,7 +7,7 @@ export function setAccessTokenCookie(user: IUser, res: Response): void {
   const SEVEN_DAYS_IN_MS = 1000 * SEVEN_DAYS_IN_SECONDS; // 604800000 ms
 
   const token = generateToken(user, SEVEN_DAYS_IN_SECONDS);
-  console.log("Token Created: ", token)
+  // console.log("Token Created: ", token)
   res.cookie('access-token', token, {
     httpOnly: true,
     secure: false,       // Set to true in production!

@@ -6,9 +6,11 @@ import UserInfo from '@/components/profile/UserInfo';
 import UserInfoEdit from '@/components/profile/UserInfoEdit';
 import { useState } from 'react';
 import { useUser } from '@/components/Auth';
+import { User } from '@/types/User';
 
 export default function UserProfile() {
   const { user: contextUser, setUser } = useUser();
+
 
   // If user is not loaded, show loading or handle unauthorized
   if (!contextUser) {
@@ -35,16 +37,12 @@ export default function UserProfile() {
 
   const handleEdit = () => setEditing(true);
 
- const handleSave = async () => {
-  setSaving(true);
-  await new Promise((r) => setTimeout(r, 900));
-  setUser({
-    ...contextUser,
-    ...form,
-  });
-  setEditing(false);
-  setSaving(false);
-};
+  const handleSave = async (user: User) => {
+    setSaving(true);
+    setUser(user)
+    setEditing(false);
+    setSaving(false);
+  };
 
 
   // Use contextUser instead of user (which is not defined)
@@ -78,15 +76,15 @@ export default function UserProfile() {
             setSelectedTab={setSelectedTab}
             setEditing={setEditing}
           />
-            <UserInfoEdit
-              user={contextUser}
-              form={form}
-              editing={editing}
-              saving={saving}
-              handleEdit={handleEdit}
-          
-              handleChange={handleChange}
-            />
+          <UserInfoEdit
+            user={contextUser}
+            form={form}
+            editing={editing}
+            saving={saving}
+            handleEdit={handleEdit}
+            handleSaving={handleSave}
+            handleChange={handleChange}
+          />
         </div>
       </div>
     </div>

@@ -62,6 +62,8 @@ export async function getUser(
       email: user.email,
       name: user.name,
       favourites: user.favourites,
+      location: user.location,
+      bio: user.bio
     });
   } catch (err) {
     console.error(err);

@@ -17,6 +17,7 @@ interface UserInfoEditProps {
     onUserUpdated?: (updated: User) => void;
     setSaving?: (saving: boolean) => void;
     setEditing?: (editing: boolean) => void;
+    handleSaving?: (user: User) => void;
 }
 
 const UserInfoEdit: React.FC<UserInfoEditProps> = ({
@@ -29,6 +30,7 @@ const UserInfoEdit: React.FC<UserInfoEditProps> = ({
     onUserUpdated,
     setSaving,
     setEditing,
+    handleSaving
 }) => {
     const [localSaving, setLocalSaving] = useState(false);
     const isSaving = setSaving ? saving : localSaving;
@@ -47,6 +49,9 @@ const UserInfoEdit: React.FC<UserInfoEditProps> = ({
 
         try {
             const updatedUser = await updateUser({ name, location, bio });
+            if (handleSaving && updatedUser) {
+                handleSaving(updatedUser);
+            }
             if (onUserUpdated && updatedUser) {
                 onUserUpdated(updatedUser);
             }

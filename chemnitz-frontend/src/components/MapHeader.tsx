@@ -13,6 +13,7 @@ interface Props {
   showFavourites: boolean;
   onShowFavourites: () => void;
   searchResetSignal: number;
+  showAlert: boolean;
 }
 
 function MapHeader({
@@ -22,6 +23,7 @@ function MapHeader({
   showFavourites,
   onShowFavourites,
   searchResetSignal,
+  showAlert
 }: Props) {
   return (
     <div className="w-full h-full flex justify-between items-center text-[14px] text-white font-semibold">
@@ -44,7 +46,7 @@ function MapHeader({
       </div>
       <div className="flex gap-6">
         <div>
-          <FavouriteButton active={showFavourites} onClick={onShowFavourites} />
+          <FavouriteButton active={showFavourites && !showAlert} onClick={onShowFavourites} />
         </div>
         <Search
           handleSetFeature={handleSetFeature}
